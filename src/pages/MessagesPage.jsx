@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Copy, MessageSquare, GitBranch, Plus, Zap, Lock, ChevronDown } from 'lucide-react'
+import { Copy, MessageSquare, GitBranch, Plus, Zap, Lock, ChevronDown, Loader2 } from 'lucide-react'
 import { useApp } from '../context/AppContext'
+import { generateAIMessage } from '../lib/ai'
 
 const MSG_TYPES = [
   'WhatsApp inicial', 'Follow-up 1', 'Follow-up 2', 'Proposta curta',
@@ -106,8 +107,14 @@ export default function MessagesPage() {
     setTone(preset.tone)
   }
 
-  const handleGenerate = () => {
-    setGenerated(generateMessage(lead, msgType, tone, objective, seed))
+  const [generating, setGenerating] = useState(false)
+
+  const handleGenerate = async () => {
+    if (!lead) return
+    setGenerating(true)
+    const text = await generateAIMessage({ lead, type: msgType, tone, objective, seed })
+    setGenerated(text)
+    setGenerating(false)
   }
 
   const copy = (text, setCop) => {
@@ -222,8 +229,9 @@ export default function MessagesPage() {
                   placeholder="Clique em 'Gerar mensagem' para criar o conteúdo..."
                 />
                 <div className="flex flex-wrap gap-2 mt-3">
-                  <button onClick={handleGenerate} className="btn-primary text-sm flex items-center gap-1.5">
-                    <Zap size={14} /> Gerar mensagem
+                  <button onClick={handleGenerate} disabled={generating} className="btn-primary text-sm flex items-center gap-1.5 disabled:opacity-60">
+                    {generating ? <Loader2 size={14} className="animate-spin" /> : <Zap size={14} />}
+                    {generating ? 'Gerando...' : 'Gerar mensagem'}
                   </button>
                   <button onClick={() => copy(generated, setCopied)} className={`text-sm flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-colors ${copied ? 'bg-brand-green text-black border-brand-green' : 'border-brand-border text-gray-300 hover:border-brand-green/40'}`}>
                     <Copy size={14} /> {copied ? 'Copiado!' : 'Copiar'}
