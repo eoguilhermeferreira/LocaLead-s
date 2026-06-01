@@ -1,7 +1,42 @@
+import { Component } from 'react'
 import { AppProvider, useApp } from './context/AppContext'
 import AuthPage from './pages/auth/AuthPage'
 import AppLayout from './components/layout/AppLayout'
 import { MapPin } from 'lucide-react'
+
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { error: null }
+  }
+  static getDerivedStateFromError(error) {
+    return { error }
+  }
+  render() {
+    if (this.state.error) {
+      return (
+        <div style={{ background: '#0d1117', color: '#fff', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', fontFamily: 'monospace' }}>
+          <div style={{ maxWidth: '600px', width: '100%' }}>
+            <div style={{ color: '#00d084', fontSize: '1.5rem', fontWeight: 900, marginBottom: '1rem' }}>⚠ Erro ao carregar</div>
+            <div style={{ background: '#111827', border: '1px solid #1f2937', borderRadius: '12px', padding: '1rem', color: '#ef4444', fontSize: '0.85rem', wordBreak: 'break-all' }}>
+              {this.state.error.toString()}
+            </div>
+            <div style={{ marginTop: '1rem', color: '#6b7280', fontSize: '0.75rem' }}>
+              {this.state.error.stack?.split('\n').slice(0, 5).join('\n')}
+            </div>
+            <button
+              onClick={() => window.location.reload()}
+              style={{ marginTop: '1.5rem', background: '#00d084', color: '#000', border: 'none', borderRadius: '12px', padding: '0.75rem 1.5rem', fontWeight: 700, cursor: 'pointer' }}
+            >
+              Recarregar
+            </button>
+          </div>
+        </div>
+      )
+    }
+    return this.props.children
+  }
+}
 
 function LoadingScreen() {
   return (
@@ -28,8 +63,10 @@ function Root() {
 
 export default function App() {
   return (
-    <AppProvider>
-      <Root />
-    </AppProvider>
+    <ErrorBoundary>
+      <AppProvider>
+        <Root />
+      </AppProvider>
+    </ErrorBoundary>
   )
 }
