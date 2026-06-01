@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Copy, MessageSquare, GitBranch, Plus, Zap, Lock, ChevronDown, Loader2 } from 'lucide-react'
+import { Copy, MessageSquare, GitBranch, Plus, Zap, ChevronDown, Loader2 } from 'lucide-react'
 import { useApp } from '../context/AppContext'
 import { generateAIMessage } from '../lib/ai'
 
@@ -136,7 +136,7 @@ export default function MessagesPage() {
           <button
             key={id}
             onClick={() => setTab(id)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${tab === id ? 'bg-brand-green text-black' : 'text-gray-400 hover:text-white'}`}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${tab === id ? 'bg-brand-wine text-black' : 'text-gray-400 hover:text-white'}`}
           >
             {label}
           </button>
@@ -205,7 +205,7 @@ export default function MessagesPage() {
                 <button
                   key={p.label}
                   onClick={() => applyPreset(p)}
-                  className="text-xs px-2.5 py-1.5 rounded-lg bg-brand-card border border-brand-border hover:border-brand-green/40 text-gray-300 transition-colors"
+                  className="text-xs px-2.5 py-1.5 rounded-lg bg-brand-card border border-brand-border hover:border-brand-wine/40 text-gray-300 transition-colors"
                 >
                   {p.label}
                 </button>
@@ -225,7 +225,7 @@ export default function MessagesPage() {
                 <textarea
                   readOnly
                   value={generated}
-                  className="w-full bg-[#0d1117] border border-brand-border rounded-xl p-3 text-sm text-gray-300 resize-none h-52 focus:outline-none font-mono"
+                  className="w-full bg-[#09090b] border border-brand-border rounded-xl p-3 text-sm text-gray-300 resize-none h-52 focus:outline-none font-mono"
                   placeholder="Clique em 'Gerar mensagem' para criar o conteúdo..."
                 />
                 <div className="flex flex-wrap gap-2 mt-3">
@@ -233,7 +233,7 @@ export default function MessagesPage() {
                     {generating ? <Loader2 size={14} className="animate-spin" /> : <Zap size={14} />}
                     {generating ? 'Gerando...' : 'Gerar mensagem'}
                   </button>
-                  <button onClick={() => copy(generated, setCopied)} className={`text-sm flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-colors ${copied ? 'bg-brand-green text-black border-brand-green' : 'border-brand-border text-gray-300 hover:border-brand-green/40'}`}>
+                  <button onClick={() => copy(generated, setCopied)} className={`text-sm flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-colors ${copied ? 'bg-brand-wine text-black border-brand-wine' : 'border-brand-border text-gray-300 hover:border-brand-wine/40'}`}>
                     <Copy size={14} /> {copied ? 'Copiado!' : 'Copiar'}
                   </button>
                   {lead && generated && (
@@ -287,7 +287,7 @@ export default function MessagesPage() {
             <textarea
               readOnly
               value={propGenerated}
-              className="w-full bg-[#0d1117] border border-brand-border rounded-xl p-3 text-sm text-gray-300 resize-none h-64 focus:outline-none font-mono mb-3"
+              className="w-full bg-[#09090b] border border-brand-border rounded-xl p-3 text-sm text-gray-300 resize-none h-64 focus:outline-none font-mono mb-3"
               placeholder="Configure e clique em 'Gerar proposta'..."
             />
             <div className="flex flex-wrap gap-2">
@@ -314,15 +314,11 @@ export default function MessagesPage() {
       {tab === 'bulk' && (
         <div className="card p-8 text-center">
           <div className="w-14 h-14 bg-brand-card rounded-2xl flex items-center justify-center mx-auto mb-4 border border-brand-border">
-            <Lock size={24} className="text-gray-500" />
+            <MessageSquare size={24} className="text-gray-500" />
           </div>
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <h2 className="font-bold text-white text-lg">Disparo em massa no WhatsApp</h2>
-            <span className="badge-green">Pro</span>
-            <span className="bg-purple-500/20 text-purple-400 text-xs font-semibold px-2.5 py-1 rounded-full">Agência</span>
-          </div>
-          <p className="text-gray-400 text-sm mb-4">Selecione vários leads e dispare mensagens personalizadas em sequência pelo WhatsApp — com modelos de IA ou texto próprio.</p>
-          <button onClick={() => navigate('billing')} className="btn-primary mx-auto">Fazer upgrade para Pro</button>
+          <h2 className="font-bold text-white text-lg mb-3">Disparo em massa no WhatsApp</h2>
+          <p className="text-gray-400 text-sm">Selecione vários leads e dispare mensagens personalizadas em sequência pelo WhatsApp — com modelos de IA ou texto próprio.</p>
+          <p className="text-gray-600 text-xs mt-3">Em breve disponível nesta instância.</p>
         </div>
       )}
     </div>

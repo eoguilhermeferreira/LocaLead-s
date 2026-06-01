@@ -6,14 +6,14 @@ export default {
     extend: {
       colors: {
         brand: {
-          green: '#00d084',
-          'green-alt': '#10b981',
+          wine: '#8b1a2f',
+          'wine-light': '#c41e3a',
           yellow: '#f59e0b',
           red: '#ef4444',
-          bg: '#0d1117',
-          card: '#111827',
-          card2: '#1a2332',
-          border: '#1f2937',
+          bg: '#09090b',
+          card: '#100508',
+          card2: '#180a0e',
+          border: '#2a1218',
         },
       },
     },

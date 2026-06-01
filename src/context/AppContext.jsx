@@ -19,6 +19,26 @@ export function AppProvider({ children }) {
   const [searchResults, setSearchResults] = useState([])
   const [noticesCount] = useState(5)
 
+  // --- Theme effect ---
+  useEffect(() => {
+    const root = document.documentElement
+    if (theme === 'light') {
+      root.classList.add('light')
+      root.classList.remove('dark')
+      root.style.setProperty('--bg', '#fafafa')
+      root.style.setProperty('--card', '#ffffff')
+      root.style.setProperty('--text', '#0a0a0a')
+      root.style.setProperty('--border', '#e5e7eb')
+    } else {
+      root.classList.remove('light')
+      root.classList.add('dark')
+      root.style.removeProperty('--bg')
+      root.style.removeProperty('--card')
+      root.style.removeProperty('--text')
+      root.style.removeProperty('--border')
+    }
+  }, [theme])
+
   // --- Auth init ---
   useEffect(() => {
     if (!supabase) {

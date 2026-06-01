@@ -31,7 +31,7 @@ export default function AppLayout() {
   const Page = PAGES[currentPage] || SearchPage
 
   return (
-    <div className="min-h-screen bg-[#0d1117]">
+    <div className="min-h-screen bg-[#09090b]">
       <Sidebar />
       <main className="lg:ml-64 pb-20 lg:pb-0 min-h-screen">
         <div className="max-w-5xl mx-auto px-4 py-6">

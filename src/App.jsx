@@ -15,10 +15,10 @@ class ErrorBoundary extends Component {
   render() {
     if (this.state.error) {
       return (
-        <div style={{ background: '#0d1117', color: '#fff', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', fontFamily: 'monospace' }}>
+        <div style={{ background: '#09090b', color: '#fff', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', fontFamily: 'monospace' }}>
           <div style={{ maxWidth: '600px', width: '100%' }}>
             <div style={{ color: '#00d084', fontSize: '1.5rem', fontWeight: 900, marginBottom: '1rem' }}>⚠ Erro ao carregar</div>
-            <div style={{ background: '#111827', border: '1px solid #1f2937', borderRadius: '12px', padding: '1rem', color: '#ef4444', fontSize: '0.85rem', wordBreak: 'break-all' }}>
+            <div style={{ background: '#100508', border: '1px solid #2a1218', borderRadius: '12px', padding: '1rem', color: '#ef4444', fontSize: '0.85rem', wordBreak: 'break-all' }}>
               {this.state.error.toString()}
             </div>
             <div style={{ marginTop: '1rem', color: '#6b7280', fontSize: '0.75rem' }}>
@@ -40,16 +40,16 @@ class ErrorBoundary extends Component {
 
 function LoadingScreen() {
   return (
-    <div className="min-h-screen bg-[#0d1117] flex items-center justify-center">
+    <div className="min-h-screen bg-[#09090b] flex items-center justify-center">
       <div className="text-center">
         <div className="flex items-center gap-2 justify-center mb-4">
-          <MapPin className="text-brand-green" size={28} />
+          <MapPin className="text-brand-wine" size={28} />
           <span className="text-2xl font-black">
             <span className="text-white">local</span>
-            <span className="text-brand-green">lead's</span>
+            <span className="text-brand-wine">lead's</span>
           </span>
         </div>
-        <div className="w-6 h-6 border-2 border-brand-green border-t-transparent rounded-full animate-spin mx-auto" />
+        <div className="w-6 h-6 border-2 border-brand-wine border-t-transparent rounded-full animate-spin mx-auto" />
       </div>
     </div>
   )

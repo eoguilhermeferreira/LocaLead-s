@@ -68,7 +68,7 @@ export default function NoticesPage() {
 
       <div className="space-y-4">
         {NOTICES.map(notice => (
-          <div key={notice.id} className={`card p-5 ${notice.fixed ? 'border-brand-green/20 bg-brand-green/5' : ''}`}>
+          <div key={notice.id} className={`card p-5 ${notice.fixed ? 'border-brand-wine/20 bg-brand-wine/5' : ''}`}>
             <div className="flex flex-wrap items-center gap-2 mb-3">
               <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${notice.category === 'Novidade' ? 'badge-green' : 'badge-gray'}`}>
                 {notice.category}
@@ -90,7 +90,7 @@ export default function NoticesPage() {
             {notice.action && (
               <a
                 href={`?page=${notice.action.page}`}
-                className="text-brand-green text-sm hover:underline font-medium"
+                className="text-brand-wine text-sm hover:underline font-medium"
                 onClick={e => { e.preventDefault(); window.history.pushState({}, '', `?page=${notice.action.page}`); window.location.reload() }}
               >
                 {notice.action.label} →

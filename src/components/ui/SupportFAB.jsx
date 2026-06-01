@@ -47,7 +47,7 @@ export default function SupportFAB() {
 
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-20 lg:bottom-6 right-4 lg:right-6 z-50 bg-brand-green text-black font-semibold px-4 py-3 rounded-full shadow-lg flex items-center gap-2 hover:bg-brand-green-alt transition-colors"
+        className="fixed bottom-20 lg:bottom-6 right-4 lg:right-6 z-50 bg-brand-wine text-black font-semibold px-4 py-3 rounded-full shadow-lg flex items-center gap-2 hover:bg-brand-wine-light transition-colors"
       >
         <HelpCircle size={18} />
         <span className="text-sm">Abrir suporte</span>

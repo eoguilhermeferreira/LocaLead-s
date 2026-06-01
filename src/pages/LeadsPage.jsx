@@ -1,32 +1,9 @@
 import { useState } from 'react'
-import { Search, Download, RotateCcw, Star, MapPin, Phone, Lock, AlertTriangle } from 'lucide-react'
+import { Search, Download, RotateCcw, Star, MapPin, Phone } from 'lucide-react'
 import { useApp } from '../context/AppContext'
-
-function UnlockModal({ onClose, navigate }) {
-  return (
-    <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-      <div className="card p-6 w-full max-w-md shadow-2xl">
-        <div className="text-center mb-4">
-          <div className="w-12 h-12 bg-yellow-500/20 rounded-2xl flex items-center justify-center mx-auto mb-3">
-            <AlertTriangle size={24} className="text-yellow-400" />
-          </div>
-          <h3 className="font-bold text-white text-lg">Desbloqueie seus leads</h3>
-          <p className="text-gray-400 text-sm mt-2">
-            Para acessar telefone, WhatsApp, score ajustável, mensagens com IA, pipeline e lista completa de oportunidades, escolha um plano.
-          </p>
-        </div>
-        <div className="flex gap-3">
-          <button onClick={onClose} className="btn-secondary flex-1 text-sm">Continuar vendo teste</button>
-          <button onClick={() => { onClose(); navigate('billing') }} className="btn-primary flex-1 text-sm">Liberar meus leads agora</button>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 export default function LeadsPage() {
   const { leads, navigate } = useApp()
-  const [showUnlock, setShowUnlock] = useState(false)
   const [filter, setFilter] = useState('todos')
 
   const filtered = leads.filter(l => {
@@ -36,10 +13,34 @@ export default function LeadsPage() {
     return true
   })
 
+  const downloadCSV = () => {
+    const headers = ['Nome', 'Nicho', 'Cidade', 'Estado', 'Score', 'Avaliação', 'Reviews', 'Site', 'Telefone', 'WhatsApp', 'Endereço', 'Prioridade']
+    const rows = filtered.map(l => [
+      `"${l.name || ''}"`,
+      `"${l.nicho || ''}"`,
+      `"${l.cidade || ''}"`,
+      `"${l.estado || ''}"`,
+      l.score || '',
+      l.rating || '',
+      l.reviews || '',
+      l.hasSite ? 'Tem site' : 'Sem site',
+      `"${l.phone || ''}"`,
+      `"${l.whatsapp || ''}"`,
+      `"${l.address || ''}"`,
+      `"${l.priority || ''}"`,
+    ])
+    const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n')
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'leads.csv'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
   return (
     <div className="space-y-5">
-      {showUnlock && <UnlockModal onClose={() => setShowUnlock(false)} navigate={navigate} />}
-
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
           <h1 className="text-2xl font-black text-white">Meus Leads</h1>
@@ -49,7 +50,7 @@ export default function LeadsPage() {
           <button onClick={() => navigate('search')} className="btn-secondary text-sm flex items-center gap-1.5">
             <Search size={14} /> Buscar mais
           </button>
-          <button onClick={() => setShowUnlock(true)} className="btn-secondary text-sm flex items-center gap-1.5">
+          <button onClick={downloadCSV} className="btn-secondary text-sm flex items-center gap-1.5">
             <Download size={14} /> Baixar Excel
           </button>
           <button className="btn-secondary text-sm flex items-center gap-1.5">
@@ -69,7 +70,7 @@ export default function LeadsPage() {
           <button
             key={id}
             onClick={() => setFilter(id)}
-            className={`text-sm px-3 py-1.5 rounded-xl border transition-colors ${filter === id ? 'bg-brand-green/10 border-brand-green/40 text-brand-green' : 'border-brand-border text-gray-400 hover:text-white'}`}
+            className={`text-sm px-3 py-1.5 rounded-xl border transition-colors ${filter === id ? 'bg-brand-wine/10 border-brand-wine/40 text-brand-wine' : 'border-brand-border text-gray-400 hover:text-white'}`}
           >
             {label}
           </button>
@@ -80,7 +81,7 @@ export default function LeadsPage() {
       {filtered.length === 0 ? (
         <div className="card p-10 text-center">
           <div className="w-14 h-14 bg-brand-card rounded-2xl flex items-center justify-center mx-auto mb-4 border border-brand-border">
-            <Lock size={24} className="text-gray-500" />
+            <Phone size={24} className="text-gray-500" />
           </div>
           <h3 className="font-bold text-white mb-2">Nenhum lead salvo ainda</h3>
           <p className="text-gray-500 text-sm mb-4">Busque oportunidades e salve os melhores leads para montar sua lista.</p>
@@ -111,7 +112,7 @@ export default function LeadsPage() {
                       </div>
                     </td>
                     <td className="px-4 py-3">
-                      <span className={`font-bold text-sm ${lead.score >= 85 ? 'text-brand-green' : lead.score >= 70 ? 'text-blue-400' : 'text-gray-400'}`}>
+                      <span className={`font-bold text-sm ${lead.score >= 85 ? 'text-brand-wine' : lead.score >= 70 ? 'text-blue-400' : 'text-gray-400'}`}>
                         {lead.score}
                       </span>
                     </td>
@@ -128,12 +129,9 @@ export default function LeadsPage() {
                       </span>
                     </td>
                     <td className="px-4 py-3">
-                      <button
-                        onClick={() => setShowUnlock(true)}
-                        className="flex items-center gap-1 text-xs text-gray-500 hover:text-white transition-colors"
-                      >
-                        <Lock size={12} /> <Phone size={12} /> Ver contato
-                      </button>
+                      <div className="flex items-center gap-1 text-xs text-gray-300">
+                        <Phone size={12} /> {lead.phone || '—'}
+                      </div>
                     </td>
                   </tr>
                 ))}

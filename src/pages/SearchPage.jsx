@@ -5,7 +5,7 @@ import { NICHOS, ESTADOS, CIDADES_POR_ESTADO } from '../data/nichos'
 import { generateMockLeads } from '../data/mockLeads'
 
 function MetricCard({ label, value, color = 'green' }) {
-  const colors = { green: 'text-brand-green', yellow: 'text-brand-yellow' }
+  const colors = { green: 'text-brand-wine', yellow: 'text-brand-yellow' }
   return (
     <div className="card p-4">
       <p className="text-xs text-gray-500 mb-1">{label}</p>
@@ -15,7 +15,7 @@ function MetricCard({ label, value, color = 'green' }) {
 }
 
 function ScoreBadge({ score }) {
-  const color = score >= 85 ? 'bg-brand-green/20 text-brand-green' :
+  const color = score >= 85 ? 'bg-brand-wine/20 text-brand-wine' :
     score >= 70 ? 'bg-blue-500/20 text-blue-400' :
     'bg-gray-700/50 text-gray-400'
   return (
@@ -29,7 +29,7 @@ function LeadCard({ lead, selected, onClick, onSave, onPipeline }) {
   return (
     <div
       onClick={onClick}
-      className={`card p-4 cursor-pointer transition-all hover:border-brand-green/40 ${selected ? 'border-brand-green/60 bg-brand-green/5' : ''}`}
+      className={`card p-4 cursor-pointer transition-all hover:border-brand-wine/40 ${selected ? 'border-brand-wine/60 bg-brand-wine/5' : ''}`}
     >
       <div className="flex items-start justify-between gap-2 mb-2">
         <h3 className="font-semibold text-white text-sm leading-tight">{lead.name}</h3>
@@ -54,13 +54,13 @@ function LeadCard({ lead, selected, onClick, onSave, onPipeline }) {
       <div className="flex gap-2">
         <button
           onClick={e => { e.stopPropagation(); onSave(lead) }}
-          className="flex items-center gap-1 text-xs px-3 py-1.5 rounded-lg bg-brand-card border border-brand-border hover:border-brand-green/40 transition-colors text-gray-300"
+          className="flex items-center gap-1 text-xs px-3 py-1.5 rounded-lg bg-brand-card border border-brand-border hover:border-brand-wine/40 transition-colors text-gray-300"
         >
           <Bookmark size={12} /> Salvar
         </button>
         <button
           onClick={e => { e.stopPropagation(); onPipeline(lead) }}
-          className="flex items-center gap-1 text-xs px-3 py-1.5 rounded-lg bg-brand-green/10 border border-brand-green/20 hover:bg-brand-green/20 transition-colors text-brand-green"
+          className="flex items-center gap-1 text-xs px-3 py-1.5 rounded-lg bg-brand-wine/10 border border-brand-wine/20 hover:bg-brand-wine/20 transition-colors text-brand-wine"
         >
           <GitBranch size={12} /> Pipeline
         </button>
@@ -230,7 +230,7 @@ function LeadDetail({ lead, onClose, onSave, onPipeline }) {
 
       {/* Score e badges */}
       <div className="flex flex-wrap gap-2 mb-4">
-        <span className="bg-brand-green/20 text-brand-green font-bold px-3 py-1 rounded-full text-sm">
+        <span className="bg-brand-wine/20 text-brand-wine font-bold px-3 py-1 rounded-full text-sm">
           Score {lead.score}
         </span>
         <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${lead.hasSite ? 'bg-blue-500/20 text-blue-400' : 'bg-orange-500/20 text-orange-400'}`}>
@@ -278,7 +278,7 @@ function LeadDetail({ lead, onClose, onSave, onPipeline }) {
       </div>
 
       {/* Pacote IA */}
-      <div className="border border-brand-border rounded-xl p-4 bg-[#0d1117]/50">
+      <div className="border border-brand-border rounded-xl p-4 bg-[#09090b]/50">
         <div className="mb-3">
           <h3 className="font-bold text-white text-sm mb-0.5">Pacote IA do Lead</h3>
           <p className="text-gray-500 text-xs">Diagnóstico, abordagem, proposta e copy prontos para copiar.</p>
@@ -289,7 +289,7 @@ function LeadDetail({ lead, onClose, onSave, onPipeline }) {
             <button
               key={t}
               onClick={() => setIaTab(t)}
-              className={`text-xs px-2.5 py-1 rounded-lg transition-colors ${iaTab === t ? 'bg-brand-green text-black font-semibold' : 'bg-brand-card border border-brand-border text-gray-400 hover:text-white'}`}
+              className={`text-xs px-2.5 py-1 rounded-lg transition-colors ${iaTab === t ? 'bg-brand-wine text-black font-semibold' : 'bg-brand-card border border-brand-border text-gray-400 hover:text-white'}`}
             >
               {t}
             </button>
@@ -299,11 +299,11 @@ function LeadDetail({ lead, onClose, onSave, onPipeline }) {
         <textarea
           readOnly
           value={content}
-          className="w-full bg-[#111827] border border-brand-border rounded-lg p-3 text-xs text-gray-300 font-mono resize-none h-48 focus:outline-none"
+          className="w-full bg-[#100508] border border-brand-border rounded-lg p-3 text-xs text-gray-300 font-mono resize-none h-48 focus:outline-none"
         />
 
         <div className="flex gap-2 mt-2">
-          <button onClick={copyContent} className={`flex items-center gap-1 text-xs px-3 py-1.5 rounded-lg transition-colors ${copied ? 'bg-brand-green text-black' : 'bg-brand-card border border-brand-border text-gray-300 hover:border-brand-green/40'}`}>
+          <button onClick={copyContent} className={`flex items-center gap-1 text-xs px-3 py-1.5 rounded-lg transition-colors ${copied ? 'bg-brand-wine text-black' : 'bg-brand-card border border-brand-border text-gray-300 hover:border-brand-wine/40'}`}>
             <Copy size={12} /> {copied ? 'Copiado!' : 'Copiar conteúdo IA'}
           </button>
           <a
@@ -329,29 +329,57 @@ export default function SearchPage() {
   const [qty, setQty] = useState('10')
   const [loading, setLoading] = useState(false)
   const [selected, setSelected] = useState(null)
-  const [showNewListModal, setShowNewListModal] = useState(false)
 
   const cidades = estado ? (CIDADES_POR_ESTADO[estado] || []) : []
 
-  const doSearch = () => {
+  const doSearch = async () => {
     setLoading(true)
     setSelected(null)
-    setTimeout(() => {
-      let leads = generateMockLeads(nicho || 'Serviços gerais', cidade || 'São Paulo', estado || 'SP', parseInt(qty))
-      if (status === 'sem-site') leads = leads.filter(l => !l.hasSite)
-      if (status === 'com-site') leads = leads.filter(l => l.hasSite)
-      if (scoreMin !== 'todos') leads = leads.filter(l => l.score >= parseInt(scoreMin))
-      setSearchResults(leads)
-      setLoading(false)
-    }, 1800)
+
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+    const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+    if (supabaseUrl && supabaseKey) {
+      try {
+        const resp = await fetch(`${supabaseUrl}/functions/v1/search-leads`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${supabaseKey}`,
+            'apikey': supabaseKey,
+          },
+          body: JSON.stringify({
+            nicho: nicho || null,
+            cidade: cidade || 'São Paulo',
+            estado: estado || 'SP',
+            qty: parseInt(qty),
+            status,
+            scoreMin,
+          }),
+        })
+        const data = await resp.json()
+        if (data.leads && data.leads.length > 0) {
+          setSearchResults(data.leads)
+          setLoading(false)
+          return
+        }
+      } catch (e) {
+        console.warn('Edge function failed, using mock:', e)
+      }
+    }
+
+    // Fallback to mock if Edge Function fails or no API key
+    const { generateMockLeads } = await import('../data/mockLeads.js')
+    let leads = generateMockLeads(nicho || 'Serviços gerais', cidade || 'São Paulo', estado || 'SP', parseInt(qty))
+    if (status === 'sem-site') leads = leads.filter(l => !l.hasSite)
+    if (status === 'com-site') leads = leads.filter(l => l.hasSite)
+    if (scoreMin !== 'todos') leads = leads.filter(l => l.score >= parseInt(scoreMin))
+    setSearchResults(leads)
+    setLoading(false)
   }
 
   const handleSearch = () => {
-    if (searchResults.length > 0) {
-      setShowNewListModal(true)
-    } else {
-      doSearch()
-    }
+    doSearch()
   }
 
   const metrics = searchResults.length > 0 ? {
@@ -364,10 +392,10 @@ export default function SearchPage() {
   return (
     <div>
       {/* Hero Banner */}
-      <div className="card p-6 mb-6 bg-gradient-to-r from-brand-green/5 to-transparent border-brand-green/20">
+      <div className="card p-6 mb-6 bg-gradient-to-r from-brand-wine/5 to-transparent border-brand-wine/20">
         <span className="badge-green mb-3 inline-block">Prospecção local com IA</span>
         <h1 className="text-3xl font-black text-white mb-4">
-          Leads locais <span className="text-brand-green">com potencial.</span>
+          Leads locais <span className="text-brand-wine">com potencial.</span>
         </h1>
         {metrics ? (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -401,22 +429,6 @@ export default function SearchPage() {
                   <Search size={15} /> {loading ? 'Buscando...' : 'Buscar oportunidades'}
                 </button>
               </div>
-            </div>
-
-            {/* Saldo do plano */}
-            <div className="bg-[#0d1117] border border-brand-border rounded-xl p-4 mb-4">
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-sm text-gray-400">Saldo mensal do plano</p>
-                <span className="badge-yellow">Teste usado</span>
-              </div>
-              <p className="text-sm font-semibold text-white mb-2">Busca teste já utilizada</p>
-              <div className="h-1.5 bg-brand-border rounded-full overflow-hidden">
-                <div className="h-full bg-brand-green/40 rounded-full w-full" />
-              </div>
-              <p className="text-xs text-gray-500 mt-2">
-                Escolha um plano para liberar todos os leads, telefones, WhatsApp, IA e pipeline.{' '}
-                <button onClick={() => navigate('billing')} className="text-brand-green hover:underline">Ver planos</button>
-              </p>
             </div>
 
             {/* Filtros */}
@@ -504,7 +516,7 @@ export default function SearchPage() {
 
             {loading && (
               <div className="card p-8 text-center">
-                <div className="w-8 h-8 border-2 border-brand-green border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+                <div className="w-8 h-8 border-2 border-brand-wine border-t-transparent rounded-full animate-spin mx-auto mb-3" />
                 <p className="text-gray-400 text-sm">Buscando oportunidades reais...</p>
                 <p className="text-gray-500 text-xs mt-1">Varredura por região, nicho e presença digital...</p>
               </div>
@@ -512,8 +524,8 @@ export default function SearchPage() {
 
             {!loading && searchResults.length === 0 && (
               <div className="card p-10 text-center">
-                <div className="w-16 h-16 bg-brand-green/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Search size={28} className="text-brand-green" />
+                <div className="w-16 h-16 bg-brand-wine/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <Search size={28} className="text-brand-wine" />
                 </div>
                 <h3 className="font-bold text-white mb-2">Pronto para buscar oportunidades</h3>
                 <p className="text-gray-500 text-sm">Configure os filtros acima e clique em "Buscar oportunidades".</p>
@@ -558,29 +570,6 @@ export default function SearchPage() {
         </div>
       </div>
 
-      {/* Modal: Gerar nova lista */}
-      {showNewListModal && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-          <div className="card p-6 w-full max-w-md shadow-2xl">
-            <h3 className="font-bold text-white text-lg mb-2">Gerar uma nova lista?</h3>
-            <p className="text-gray-400 text-sm mb-3">A lista atual será substituída pelos novos resultados.</p>
-            <div className="flex items-start gap-2 p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-xl mb-4">
-              <Lightbulb size={14} className="text-yellow-400 flex-shrink-0 mt-0.5" />
-              <p className="text-xs text-yellow-300">
-                Salve os melhores leads antes de continuar para não perder boas oportunidades.
-              </p>
-            </div>
-            <div className="flex gap-3">
-              <button onClick={() => setShowNewListModal(false)} className="btn-secondary flex-1">
-                Voltar e salvar leads
-              </button>
-              <button onClick={() => { setShowNewListModal(false); doSearch() }} className="btn-primary flex-1">
-                Continuar busca
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

@@ -6,10 +6,10 @@ import { supabase } from '../../lib/supabase'
 function Logo({ className = '' }) {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
-      <MapPin className="text-brand-green" size={24} />
+      <MapPin className="text-brand-wine" size={24} />
       <span className="text-xl font-black">
         <span className="text-white">local</span>
-        <span className="text-brand-green">lead's</span>
+        <span className="text-brand-wine">lead's</span>
       </span>
     </div>
   )
@@ -17,11 +17,11 @@ function Logo({ className = '' }) {
 
 function AuthHero() {
   return (
-    <div className="hidden lg:flex flex-col justify-center px-16 bg-gradient-to-br from-[#0d1117] to-[#111827] border-r border-brand-border">
+    <div className="hidden lg:flex flex-col justify-center px-16 bg-gradient-to-br from-[#09090b] to-[#100508] border-r border-brand-border">
       <Logo className="mb-8" />
       <h1 className="text-4xl font-black leading-tight text-white mb-4">
         Encontre leads locais<br />
-        <span className="text-brand-green">com potencial.</span>
+        <span className="text-brand-wine">com potencial.</span>
       </h1>
       <p className="text-gray-400 text-lg leading-relaxed">
         Prospecção local com inteligência artificial.<br />
@@ -29,8 +29,8 @@ function AuthHero() {
       </p>
       <div className="mt-8 grid grid-cols-2 gap-3">
         {[['100+', 'Nichos disponíveis'], ['27', 'Estados + DF'], ['IA', 'Mensagens prontas'], ['0 código', 'Sem programação']].map(([v, l]) => (
-          <div key={l} className="bg-brand-green/10 border border-brand-green/20 rounded-xl p-3">
-            <p className="text-brand-green font-black text-lg">{v}</p>
+          <div key={l} className="bg-brand-wine/10 border border-brand-wine/20 rounded-xl p-3">
+            <p className="text-brand-wine font-black text-lg">{v}</p>
             <p className="text-gray-400 text-xs">{l}</p>
           </div>
         ))}
@@ -79,7 +79,7 @@ function LoginForm({ onSwitch }) {
 
         {error && <p className="text-red-400 text-sm">{error}</p>}
 
-        <button type="button" onClick={() => onSwitch('forgot')} className="text-brand-green text-sm hover:underline">
+        <button type="button" onClick={() => onSwitch('forgot')} className="text-brand-wine text-sm hover:underline">
           Esqueci minha senha
         </button>
 
@@ -93,7 +93,7 @@ function LoginForm({ onSwitch }) {
 
       <p className="text-gray-400 text-sm mt-6 text-center">
         Ainda não tem uma conta?{' '}
-        <button onClick={() => onSwitch('register')} className="text-brand-green font-semibold hover:underline">
+        <button onClick={() => onSwitch('register')} className="text-brand-wine font-semibold hover:underline">
           Criar conta
         </button>
       </p>
@@ -125,8 +125,8 @@ function ForgotForm({ onSwitch }) {
       <p className="text-gray-400 text-sm mb-8">Digite seu e-mail e enviaremos um link de recuperação.</p>
 
       {sent ? (
-        <div className="card p-6 text-center border-brand-green/30">
-          <p className="text-brand-green font-bold text-lg mb-1">Link enviado! ✓</p>
+        <div className="card p-6 text-center border-brand-wine/30">
+          <p className="text-brand-wine font-bold text-lg mb-1">Link enviado! ✓</p>
           <p className="text-gray-400 text-sm">Verifique seu e-mail para redefinir a senha.</p>
         </div>
       ) : (
@@ -142,7 +142,7 @@ function ForgotForm({ onSwitch }) {
         </form>
       )}
 
-      <button onClick={() => onSwitch('login')} className="text-brand-green text-sm mt-4 hover:underline text-center block">
+      <button onClick={() => onSwitch('login')} className="text-brand-wine text-sm mt-4 hover:underline text-center block">
         ← Voltar ao Login
       </button>
     </div>
@@ -212,7 +212,7 @@ function RegisterForm({ onSwitch }) {
         <div>
           <label className="text-sm text-gray-400 mb-1 block">Verificação de segurança</label>
           <div className="flex gap-2 items-center mb-2">
-            <span className="bg-[#1a2332] border border-brand-border px-4 py-2 rounded-xl font-mono font-bold text-brand-green tracking-widest text-lg select-none">
+            <span className="bg-[#180a0e] border border-brand-border px-4 py-2 rounded-xl font-mono font-bold text-brand-wine tracking-widest text-lg select-none">
               {captcha}
             </span>
             <RefreshCw size={16} className="text-gray-500" />
@@ -227,7 +227,7 @@ function RegisterForm({ onSwitch }) {
 
       <p className="text-gray-400 text-sm mt-4 text-center">
         Já tem uma conta?{' '}
-        <button onClick={() => onSwitch('login')} className="text-brand-green font-semibold hover:underline">Entrar</button>
+        <button onClick={() => onSwitch('login')} className="text-brand-wine font-semibold hover:underline">Entrar</button>
       </p>
     </div>
   )
@@ -237,12 +237,12 @@ export default function AuthPage() {
   const [view, setView] = useState('login')
 
   return (
-    <div className="min-h-screen bg-[#0d1117] flex items-stretch">
+    <div className="min-h-screen bg-[#09090b] flex items-stretch">
       <div className="flex w-full max-w-5xl mx-auto shadow-2xl min-h-screen lg:min-h-0 lg:my-auto lg:rounded-2xl overflow-hidden">
         <div className="hidden lg:flex flex-1">
           <AuthHero />
         </div>
-        <div className="w-full lg:w-[480px] bg-[#111827] border-l border-brand-border overflow-y-auto flex flex-col">
+        <div className="w-full lg:w-[480px] bg-[#100508] border-l border-brand-border overflow-y-auto flex flex-col">
           <div className="flex-1">
             {view === 'login' && <LoginForm onSwitch={setView} />}
             {view === 'forgot' && <ForgotForm onSwitch={setView} />}

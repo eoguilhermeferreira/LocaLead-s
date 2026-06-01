@@ -20,13 +20,13 @@ export default function BottomNav() {
   const { currentPage, navigate, noticesCount } = useApp()
 
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#111827] border-t border-brand-border z-50 flex">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#100508] border-t border-brand-border z-50 flex">
       {NAV_ITEMS.map(({ id, icon: Icon, badge }) => (
         <button
           key={id}
           onClick={() => navigate(id)}
           className={`flex-1 flex flex-col items-center justify-center py-2 relative
-            ${currentPage === id ? 'text-brand-green' : 'text-gray-500'}`}
+            ${currentPage === id ? 'text-brand-wine' : 'text-gray-500'}`}
         >
           <Icon size={20} />
           {badge && noticesCount > 0 && (

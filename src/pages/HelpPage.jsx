@@ -41,11 +41,11 @@ export default function HelpPage() {
           { icon: '🔧', title: 'Construtor', desc: 'Criar sites' },
           { icon: '📢', title: 'Novidades', desc: 'Canal de avisos' },
         ].map(({ icon, title, desc }) => (
-          <div key={title} className="card p-4 hover:border-brand-green/30 transition-colors cursor-pointer">
+          <div key={title} className="card p-4 hover:border-brand-wine/30 transition-colors cursor-pointer">
             <div className="text-2xl mb-2">{icon}</div>
             <p className="text-sm font-semibold text-white">{title}</p>
             <p className="text-xs text-gray-500">{desc}</p>
-            <ChevronRight size={14} className="text-brand-green mt-2" />
+            <ChevronRight size={14} className="text-brand-wine mt-2" />
           </div>
         ))}
       </div>

@@ -8,7 +8,7 @@ export default function BuilderPage() {
     <div className="space-y-5">
       <div>
         <h1 className="text-2xl font-black text-white flex items-center gap-2">
-          <Wrench size={24} className="text-brand-green" /> Construção
+          <Wrench size={24} className="text-brand-wine" /> Construção
         </h1>
         <p className="text-gray-400 text-sm">Gere sites profissionais para os seus clientes a partir dos leads salvos.</p>
       </div>
@@ -31,7 +31,7 @@ export default function BuilderPage() {
             'Site pronto para hospedar, entregar e cobrar',
           ].map(item => (
             <div key={item} className="flex items-start gap-2 text-sm text-gray-300">
-              <Check size={14} className="text-brand-green flex-shrink-0 mt-0.5" />
+              <Check size={14} className="text-brand-wine flex-shrink-0 mt-0.5" />
               <span>{item}</span>
             </div>
           ))}

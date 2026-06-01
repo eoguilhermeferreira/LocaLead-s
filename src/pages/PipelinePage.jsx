@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Plus, RotateCcw, Star, MapPin, MessageSquare, GitBranch, AlertTriangle } from 'lucide-react'
+import { Plus, RotateCcw, Star, MapPin, MessageSquare, GitBranch } from 'lucide-react'
 import { useApp } from '../context/AppContext'
 
 const STAGES = [
@@ -16,31 +16,12 @@ const STAGE_COLORS = {
   yellow: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/20',
   purple: 'bg-purple-500/20 text-purple-400 border-purple-500/20',
   orange: 'bg-orange-500/20 text-orange-400 border-orange-500/20',
-  green: 'bg-brand-green/20 text-brand-green border-brand-green/20',
+  green: 'bg-brand-wine/20 text-brand-wine border-brand-wine/20',
   red: 'bg-red-500/20 text-red-400 border-red-500/20',
-}
-
-function UnlockModal({ onClose, navigate }) {
-  return (
-    <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-      <div className="card p-6 w-full max-w-md">
-        <div className="text-center mb-4">
-          <AlertTriangle size={32} className="text-yellow-400 mx-auto mb-2" />
-          <h3 className="font-bold text-white text-lg">Desbloqueie seus leads</h3>
-          <p className="text-gray-400 text-sm mt-2">Acesse o Pipeline Comercial com um plano pago.</p>
-        </div>
-        <div className="flex gap-3">
-          <button onClick={onClose} className="btn-secondary flex-1 text-sm">Voltar</button>
-          <button onClick={() => { onClose(); navigate('billing') }} className="btn-primary flex-1 text-sm">Ver planos</button>
-        </div>
-      </div>
-    </div>
-  )
 }
 
 export default function PipelinePage() {
   const { pipeline, movePipelineStage, navigate, leads } = useApp()
-  const [showUnlock, setShowUnlock] = useState(false)
 
   const kpis = {
     total: pipeline.length,
@@ -52,8 +33,6 @@ export default function PipelinePage() {
 
   return (
     <div className="space-y-5">
-      {showUnlock && <UnlockModal onClose={() => setShowUnlock(false)} navigate={navigate} />}
-
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
           <h1 className="text-2xl font-black text-white">Pipeline</h1>
@@ -87,7 +66,7 @@ export default function PipelinePage() {
 
       {/* Instrução */}
       <div className="flex items-start gap-2 p-3 bg-brand-card rounded-xl border border-brand-border text-xs text-gray-400">
-        <GitBranch size={14} className="text-brand-green flex-shrink-0 mt-0.5" />
+        <GitBranch size={14} className="text-brand-wine flex-shrink-0 mt-0.5" />
         <span>Mova cada lead conforme a conversa avança. Use 'Mensagem', 'WhatsApp' e 'Proposta' para agir sem sair do pipeline. <strong className="text-white">Fluxo recomendado:</strong> Novo → Abordado → Respondeu → Proposta → Fechado</span>
       </div>
 
@@ -133,7 +112,7 @@ export default function PipelinePage() {
                             <button className="text-[10px] px-2 py-1 rounded-lg bg-brand-card border border-brand-border text-gray-400">
                               Mover →
                             </button>
-                            <div className="absolute bottom-full left-0 mb-1 hidden group-hover:block bg-[#1a2332] border border-brand-border rounded-xl p-1.5 z-10 shadow-xl w-40">
+                            <div className="absolute bottom-full left-0 mb-1 hidden group-hover:block bg-[#180a0e] border border-brand-border rounded-xl p-1.5 z-10 shadow-xl w-40">
                               {STAGES.filter(s => s.id !== stage.id).map(s => (
                                 <button
                                   key={s.id}

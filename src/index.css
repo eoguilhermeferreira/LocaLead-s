@@ -2,9 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+:root.light {
+  --tw-prose-body: #0a0a0a;
+}
+:root.light body {
+  background-color: #f5f5f5;
+  color: #0a0a0a;
+}
+:root.light .card {
+  background-color: #ffffff !important;
+  border-color: #e5e7eb !important;
+}
+:root.light .input, :root.light .select {
+  background-color: #f9fafb !important;
+  border-color: #d1d5db !important;
+  color: #0a0a0a !important;
+}
+:root.light .nav-item {
+  color: #374151 !important;
+}
+:root.light .nav-item:hover {
+  background-color: #f3f4f6 !important;
+  color: #0a0a0a !important;
+}
+aside, nav {
+  background-color: inherit;
+}
+:root.light aside {
+  background-color: #ffffff !important;
+  border-color: #e5e7eb !important;
+}
+:root.light main {
+  background-color: #f5f5f5 !important;
+}
+
 @layer base {
   html {
-    @apply bg-[#0d1117] text-white;
+    @apply bg-[#09090b] text-white;
   }
 
   * {
@@ -16,10 +50,10 @@
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #111827;
+    background: #100508;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1f2937;
+    background: #2a1218;
     border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
@@ -29,22 +63,22 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-brand-green text-black font-semibold px-4 py-2 rounded-xl hover:bg-brand-green-alt transition-colors cursor-pointer;
+    @apply bg-brand-wine text-white font-semibold px-4 py-2 rounded-xl hover:bg-brand-wine-light transition-colors cursor-pointer;
   }
   .btn-secondary {
     @apply border border-brand-border text-white font-medium px-4 py-2 rounded-xl hover:bg-brand-card transition-colors cursor-pointer;
   }
   .card {
-    @apply bg-[#111827] border border-brand-border rounded-2xl;
+    @apply bg-[#100508] border border-brand-border rounded-2xl;
   }
   .input {
-    @apply w-full bg-[#1a2332] border border-brand-border rounded-xl px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-brand-green transition-colors;
+    @apply w-full bg-[#180a0e] border border-brand-border rounded-xl px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-brand-wine transition-colors;
   }
   .select {
-    @apply w-full bg-[#1a2332] border border-brand-border rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-green transition-colors cursor-pointer appearance-none;
+    @apply w-full bg-[#180a0e] border border-brand-border rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-wine transition-colors cursor-pointer appearance-none;
   }
   .badge-green {
-    @apply bg-brand-green/20 text-brand-green text-xs font-semibold px-2.5 py-1 rounded-full;
+    @apply bg-brand-wine/20 text-brand-wine text-xs font-semibold px-2.5 py-1 rounded-full;
   }
   .badge-red {
     @apply bg-red-500/20 text-red-400 text-xs font-semibold px-2.5 py-1 rounded-full;
@@ -59,6 +93,6 @@
     @apply flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-brand-card hover:text-white transition-all cursor-pointer text-sm font-medium;
   }
   .nav-item-active {
-    @apply bg-brand-green/10 text-brand-green border border-brand-green/20;
+    @apply bg-brand-wine/10 text-brand-wine border border-brand-wine/20;
   }
 }

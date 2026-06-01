@@ -42,7 +42,7 @@ export default function AccountPage() {
             </label>
             <input className="input" placeholder="(11) 99999-9999" value={phone} onChange={e => setPhone(e.target.value)} />
           </div>
-          <button type="submit" className={`btn-primary flex items-center gap-2 ${saved ? 'bg-brand-green-alt' : ''}`}>
+          <button type="submit" className={`btn-primary flex items-center gap-2 ${saved ? 'bg-brand-wine-light' : ''}`}>
             <Save size={14} /> {saved ? 'Salvo!' : 'Salvar alterações'}
           </button>
         </form>

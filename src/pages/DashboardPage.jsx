@@ -59,7 +59,7 @@ export default function DashboardPage() {
           <span className="badge-gray">Usando mensagens padrão</span>
         </div>
         <p className="text-gray-500 text-xs mb-4">
-          Configure <button className="text-brand-green hover:underline">[suas mensagens]</button> e os prazos. O sistema te avisa a hora certa de cada retorno e você confirma o envio.
+          Configure <button className="text-brand-wine hover:underline">[suas mensagens]</button> e os prazos. O sistema te avisa a hora certa de cada retorno e você confirma o envio.
         </p>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
@@ -82,14 +82,14 @@ export default function DashboardPage() {
 
         <button
           onClick={() => setFollowupOpen(!followupOpen)}
-          className="flex items-center gap-2 text-sm text-brand-green hover:underline mb-2"
+          className="flex items-center gap-2 text-sm text-brand-wine hover:underline mb-2"
         >
           ✏️ Personalizar minhas mensagens e prazos
           <ChevronDown size={14} className={`transition-transform ${followupOpen ? 'rotate-180' : ''}`} />
         </button>
 
         {followupOpen && (
-          <div className="space-y-3 mt-3 p-4 bg-[#0d1117] rounded-xl border border-brand-border">
+          <div className="space-y-3 mt-3 p-4 bg-[#09090b] rounded-xl border border-brand-border">
             <p className="text-xs text-gray-500">Variáveis disponíveis: <span className="text-gray-300 font-mono">{'{nome}, {categoria}, {cidade}, {estado}, {avaliacao}, {avaliacoes}'}</span></p>
             <div>
               <label className="text-xs text-gray-400 mb-1 block">Sua mensagem de Follow-up 1</label>
@@ -132,12 +132,12 @@ export default function DashboardPage() {
           ) : (
             <div className="space-y-2">
               {leads.filter(l => !pipeline.find(p => p.id === l.id)).slice(0, 5).map(l => (
-                <div key={l.id} className="flex items-center justify-between p-3 bg-[#0d1117] rounded-xl">
+                <div key={l.id} className="flex items-center justify-between p-3 bg-[#09090b] rounded-xl">
                   <div>
                     <p className="text-sm font-medium text-white">{l.name}</p>
                     <p className="text-xs text-gray-500">{l.nicho}</p>
                   </div>
-                  <span className="text-xs font-bold text-brand-green">Score {l.score}</span>
+                  <span className="text-xs font-bold text-brand-wine">Score {l.score}</span>
                 </div>
               ))}
             </div>
@@ -167,7 +167,7 @@ export default function DashboardPage() {
         ) : (
           <div className="space-y-2">
             {topLeads.map((l, i) => (
-              <div key={l.id} className="flex items-center gap-3 p-3 bg-[#0d1117] rounded-xl">
+              <div key={l.id} className="flex items-center gap-3 p-3 bg-[#09090b] rounded-xl">
                 <span className="text-gray-600 text-xs font-bold w-4">#{i + 1}</span>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-white truncate">{l.name}</p>
@@ -176,7 +176,7 @@ export default function DashboardPage() {
                 <div className="flex items-center gap-1 text-xs">
                   <Star size={11} className="text-brand-yellow fill-brand-yellow" />
                   <span className="text-gray-400">{l.rating}</span>
-                  <span className="ml-2 text-brand-green font-bold">{l.score}</span>
+                  <span className="ml-2 text-brand-wine font-bold">{l.score}</span>
                 </div>
               </div>
             ))}

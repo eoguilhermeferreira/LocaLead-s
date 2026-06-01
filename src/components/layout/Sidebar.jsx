@@ -22,14 +22,14 @@ export default function Sidebar() {
   const { currentPage, navigate, user, logout, theme, setTheme, noticesCount } = useApp()
 
   return (
-    <aside className="hidden lg:flex flex-col w-64 h-screen bg-[#111827] border-r border-brand-border fixed left-0 top-0">
+    <aside className="hidden lg:flex flex-col w-64 h-screen bg-[#100508] border-r border-brand-border fixed left-0 top-0">
       {/* Logo */}
       <div className="flex items-center justify-between px-5 py-5 border-b border-brand-border">
         <div className="flex items-center gap-2">
-          <MapPin className="text-brand-green" size={22} />
+          <MapPin className="text-brand-wine" size={22} />
           <span className="text-lg font-black">
             <span className="text-white">local</span>
-            <span className="text-brand-green">lead's</span>
+            <span className="text-brand-wine">lead's</span>
           </span>
         </div>
         <div className="flex gap-1">
