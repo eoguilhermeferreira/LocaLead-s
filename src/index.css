@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-[#0d1117] text-white;
+  }
+
+  * {
+    @apply border-brand-border;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #111827;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1f2937;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #374151;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brand-green text-black font-semibold px-4 py-2 rounded-xl hover:bg-brand-green-alt transition-colors cursor-pointer;
+  }
+  .btn-secondary {
+    @apply border border-brand-border text-white font-medium px-4 py-2 rounded-xl hover:bg-brand-card transition-colors cursor-pointer;
+  }
+  .card {
+    @apply bg-[#111827] border border-brand-border rounded-2xl;
+  }
+  .input {
+    @apply w-full bg-[#1a2332] border border-brand-border rounded-xl px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-brand-green transition-colors;
+  }
+  .select {
+    @apply w-full bg-[#1a2332] border border-brand-border rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-green transition-colors cursor-pointer appearance-none;
+  }
+  .badge-green {
+    @apply bg-brand-green/20 text-brand-green text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+  .badge-red {
+    @apply bg-red-500/20 text-red-400 text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+  .badge-yellow {
+    @apply bg-yellow-500/20 text-yellow-400 text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+  .badge-gray {
+    @apply bg-gray-700/50 text-gray-400 text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+  .nav-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-brand-card hover:text-white transition-all cursor-pointer text-sm font-medium;
+  }
+  .nav-item-active {
+    @apply bg-brand-green/10 text-brand-green border border-brand-green/20;
+  }
+}
