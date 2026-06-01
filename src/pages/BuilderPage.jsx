@@ -1,58 +1,140 @@
-import { Lock, Check, Wrench } from 'lucide-react'
+import { ExternalLink, Wrench, Lightbulb, Check } from 'lucide-react'
 import { useApp } from '../context/AppContext'
 
+const LOVABLE_URL = 'https://lovable.dev'
+
+const PROMPTS = [
+  {
+    label: 'Site para restaurante',
+    prompt: 'Crie um site profissional para um restaurante brasileiro com cardápio, galeria de fotos, localização, horário de funcionamento, botão de reserva pelo WhatsApp e depoimentos de clientes. Use cores quentes e design moderno.',
+  },
+  {
+    label: 'Site para salão de beleza',
+    prompt: 'Crie um site elegante para um salão de beleza com lista de serviços e preços, galeria antes/depois, agendamento pelo WhatsApp, mapa de localização e depoimentos. Use cores rosê e design feminino sofisticado.',
+  },
+  {
+    label: 'Site para clínica / consultório',
+    prompt: 'Crie um site profissional para uma clínica médica/consultório com apresentação do profissional, especialidades, agendamento online pelo WhatsApp, convênios aceitos e localização. Design limpo e confiável.',
+  },
+  {
+    label: 'Site para academia / personal',
+    prompt: 'Crie um site moderno para uma academia ou personal trainer com planos e preços, modalidades oferecidas, galeria da estrutura, depoimentos de alunos e formulário de contato. Design energético com tons escuros.',
+  },
+  {
+    label: 'Site para loja / comércio',
+    prompt: 'Crie um site para uma loja local com catálogo de produtos em destaque, promoções, localização, horário de atendimento e botão de contato pelo WhatsApp. Design limpo e comercial.',
+  },
+  {
+    label: 'Site para prestador de serviços',
+    prompt: 'Crie um site para um prestador de serviços autônomo (ex: eletricista, encanador, pintor) com serviços oferecidos, área de atendimento, fotos de trabalhos realizados, depoimentos e botão WhatsApp para orçamento.',
+  },
+]
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).catch(() => {
+    const el = document.createElement('textarea')
+    el.value = text
+    document.body.appendChild(el)
+    el.select()
+    document.execCommand('copy')
+    document.body.removeChild(el)
+  })
+}
+
 export default function BuilderPage() {
-  const { navigate } = useApp()
+  const { leads } = useApp()
+
+  const openLovable = () => {
+    window.open(LOVABLE_URL, '_blank', 'noopener,noreferrer')
+  }
+
+  const usePrompt = (prompt) => {
+    copyToClipboard(prompt)
+    window.open(LOVABLE_URL, '_blank', 'noopener,noreferrer')
+  }
 
   return (
     <div className="space-y-5">
       <div>
         <h1 className="text-2xl font-black text-white flex items-center gap-2">
-          <Wrench size={24} className="text-brand-wine" /> Construção
+          <Wrench size={24} className="text-brand-wine" /> Construção de Sites
         </h1>
-        <p className="text-gray-400 text-sm">Gere sites profissionais para os seus clientes a partir dos leads salvos.</p>
+        <p className="text-gray-400 text-sm">Crie sites profissionais para seus clientes usando o Lovable — IA que gera sites completos em minutos.</p>
       </div>
 
-      {/* Construtor bloqueado */}
-      <div className="card p-8 text-center">
-        <div className="w-16 h-16 bg-brand-card rounded-2xl flex items-center justify-center mx-auto mb-4 border border-brand-border">
-          <Lock size={28} className="text-gray-500" />
+      {/* Lovable CTA */}
+      <div className="card p-6 border-brand-wine/30">
+        <div className="flex items-start justify-between gap-4 flex-wrap">
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-lg font-black text-white">Lovable</span>
+              <span className="badge-green">Recomendado</span>
+            </div>
+            <p className="text-gray-400 text-sm mb-4">
+              Cole um prompt descrevendo o negócio do seu cliente e o Lovable gera um site completo, responsivo e pronto para publicar.
+            </p>
+            <div className="grid grid-cols-2 gap-1.5 mb-4">
+              {['Site completo em minutos', 'Design profissional', 'Totalmente responsivo', 'Pronto para publicar'].map(f => (
+                <div key={f} className="flex items-center gap-1.5 text-xs text-gray-300">
+                  <Check size={12} className="text-brand-wine flex-shrink-0" /> {f}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-        <h2 className="text-xl font-bold text-white mb-2">Construtor de sites — recurso dos planos pagos</h2>
-        <p className="text-gray-400 text-sm mb-6">
-          Crie sites completos e bonitos para os seus clientes em minutos — com a sua logo, fotos do nicho, galeria, vídeo e tudo pronto para entregar e cobrar.
-        </p>
+        <button onClick={openLovable} className="btn-primary flex items-center gap-2">
+          <ExternalLink size={16} /> Abrir Lovable
+        </button>
+      </div>
 
-        <div className="grid md:grid-cols-2 gap-2 max-w-lg mx-auto mb-6 text-left">
-          {[
-            '9 templates + 32 paletas + 17 fontes + 8 acabamentos visuais',
-            'Seções avançadas: planos, diferenciais, depoimentos e equipe',
-            'Upload da logo e fotos do cliente (ou imagem automática do nicho)',
-            'Site pronto para hospedar, entregar e cobrar',
-          ].map(item => (
-            <div key={item} className="flex items-start gap-2 text-sm text-gray-300">
-              <Check size={14} className="text-brand-wine flex-shrink-0 mt-0.5" />
-              <span>{item}</span>
+      {/* Prompts prontos */}
+      <div>
+        <div className="flex items-center gap-2 mb-3">
+          <Lightbulb size={16} className="text-brand-wine" />
+          <h2 className="font-bold text-white">Prompts prontos por nicho</h2>
+        </div>
+        <p className="text-gray-400 text-sm mb-4">Clique em "Usar prompt" para copiar e abrir o Lovable já com o texto no clipboard.</p>
+        <div className="grid gap-3 md:grid-cols-2">
+          {PROMPTS.map(({ label, prompt }) => (
+            <div key={label} className="card p-4">
+              <p className="font-semibold text-white text-sm mb-2">{label}</p>
+              <p className="text-gray-500 text-xs mb-3 line-clamp-2">{prompt}</p>
+              <button
+                onClick={() => usePrompt(prompt)}
+                className="btn-secondary text-xs flex items-center gap-1.5 py-1.5"
+              >
+                <ExternalLink size={12} /> Usar prompt
+              </button>
             </div>
           ))}
         </div>
-
-        <button onClick={() => navigate('billing')} className="btn-primary mx-auto mb-3">
-          Ver planos e assinar
-        </button>
-        <p className="text-xs text-gray-500">Disponível no mensal ou no anual — escolha o plano que fizer mais sentido pra você.</p>
       </div>
 
-      {/* Campanhas em breve */}
-      <div className="card p-6">
-        <h2 className="font-bold text-white mb-1">Campanhas</h2>
-        <p className="text-gray-400 text-sm mb-4">Planeje listas de prospecção por cidade, nicho e oferta.</p>
-        <h3 className="font-semibold text-white mb-1">Campanhas por nicho</h3>
-        <div className="flex items-center gap-2">
-          <span className="badge-yellow">Em breve</span>
-          <span className="text-xs text-gray-500">Salve uma busca como campanha, acompanhe abordagens e gere follow-ups automáticos.</span>
+      {/* Prompt a partir de lead salvo */}
+      {leads.length > 0 && (
+        <div className="card p-5">
+          <h2 className="font-bold text-white mb-1">Criar site para um lead salvo</h2>
+          <p className="text-gray-400 text-sm mb-3">Gere um prompt personalizado com os dados do lead e cole no Lovable.</p>
+          <div className="space-y-2">
+            {leads.slice(0, 5).map(lead => (
+              <div key={lead.id} className="flex items-center justify-between gap-3 py-2 border-b border-brand-border last:border-0">
+                <div>
+                  <p className="text-sm font-medium text-white">{lead.name}</p>
+                  <p className="text-xs text-gray-500">{lead.nicho} · {lead.cidade}/{lead.estado}</p>
+                </div>
+                <button
+                  onClick={() => usePrompt(
+                    `Crie um site profissional para "${lead.name}", um negócio do segmento de ${lead.nicho} localizado em ${lead.cidade}, ${lead.estado}. O negócio tem nota ${lead.rating} no Google com ${lead.reviews} avaliações. ${lead.hasSite ? 'Modernize o visual para ser mais atrativo.' : 'É a primeira presença digital deles.'} Inclua: apresentação do negócio, serviços, galeria, depoimentos, mapa/localização e botão de contato pelo WhatsApp. Design moderno, responsivo e profissional.`
+                  )}
+                  className="btn-secondary text-xs flex items-center gap-1.5 py-1.5 whitespace-nowrap"
+                >
+                  <ExternalLink size={12} /> Gerar site
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

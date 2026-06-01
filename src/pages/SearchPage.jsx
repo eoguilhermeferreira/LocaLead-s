@@ -329,12 +329,14 @@ export default function SearchPage() {
   const [qty, setQty] = useState('10')
   const [loading, setLoading] = useState(false)
   const [selected, setSelected] = useState(null)
+  const [searchError, setSearchError] = useState(null)
 
   const cidades = estado ? (CIDADES_POR_ESTADO[estado] || []) : []
 
   const doSearch = async () => {
     setLoading(true)
     setSelected(null)
+    setSearchError(null)
 
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
     const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
@@ -358,23 +360,27 @@ export default function SearchPage() {
           }),
         })
         const data = await resp.json()
-        if (data.leads && data.leads.length > 0) {
+        if (data.error) {
+          setSearchError(data.error)
+          setSearchResults([])
+          setLoading(false)
+          return
+        }
+        if (data.leads) {
           setSearchResults(data.leads)
           setLoading(false)
           return
         }
       } catch (e) {
-        console.warn('Edge function failed, using mock:', e)
+        setSearchError('Erro ao conectar com o servidor. Tente novamente.')
+        setSearchResults([])
+        setLoading(false)
+        return
       }
     }
 
-    // Fallback to mock if Edge Function fails or no API key
-    const { generateMockLeads } = await import('../data/mockLeads.js')
-    let leads = generateMockLeads(nicho || 'Serviços gerais', cidade || 'São Paulo', estado || 'SP', parseInt(qty))
-    if (status === 'sem-site') leads = leads.filter(l => !l.hasSite)
-    if (status === 'com-site') leads = leads.filter(l => l.hasSite)
-    if (scoreMin !== 'todos') leads = leads.filter(l => l.score >= parseInt(scoreMin))
-    setSearchResults(leads)
+    setSearchError('Configuração do servidor não encontrada.')
+    setSearchResults([])
     setLoading(false)
   }
 
@@ -522,7 +528,14 @@ export default function SearchPage() {
               </div>
             )}
 
-            {!loading && searchResults.length === 0 && (
+            {!loading && searchError && (
+              <div className="card p-8 text-center border-red-500/20">
+                <p className="text-red-400 font-semibold mb-1">Erro na busca</p>
+                <p className="text-gray-500 text-sm">{searchError}</p>
+              </div>
+            )}
+
+            {!loading && !searchError && searchResults.length === 0 && (
               <div className="card p-10 text-center">
                 <div className="w-16 h-16 bg-brand-wine/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <Search size={28} className="text-brand-wine" />

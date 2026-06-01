@@ -7,23 +7,48 @@
 }
 :root.light body {
   background-color: #f5f5f5;
-  color: #0a0a0a;
+  color: #111111;
+}
+:root.light h1, :root.light h2, :root.light h3,
+:root.light p, :root.light span, :root.light label,
+:root.light td, :root.light th, :root.light div {
+  color: #111111;
+}
+:root.light .text-white {
+  color: #111111 !important;
+}
+:root.light .text-gray-400 {
+  color: #555555 !important;
+}
+:root.light .text-gray-500 {
+  color: #666666 !important;
+}
+:root.light .text-gray-300 {
+  color: #333333 !important;
 }
 :root.light .card {
   background-color: #ffffff !important;
   border-color: #e5e7eb !important;
+  color: #111111 !important;
 }
 :root.light .input, :root.light .select {
   background-color: #f9fafb !important;
   border-color: #d1d5db !important;
-  color: #0a0a0a !important;
+  color: #111111 !important;
 }
 :root.light .nav-item {
   color: #374151 !important;
 }
 :root.light .nav-item:hover {
   background-color: #f3f4f6 !important;
-  color: #0a0a0a !important;
+  color: #111111 !important;
+}
+:root.light .btn-secondary {
+  color: #111111 !important;
+  border-color: #d1d5db !important;
+}
+:root.light .btn-secondary:hover {
+  background-color: #f3f4f6 !important;
 }
 aside, nav {
   background-color: inherit;
@@ -31,6 +56,9 @@ aside, nav {
 :root.light aside {
   background-color: #ffffff !important;
   border-color: #e5e7eb !important;
+}
+:root.light aside p, :root.light aside span {
+  color: #111111 !important;
 }
 :root.light main {
   background-color: #f5f5f5 !important;

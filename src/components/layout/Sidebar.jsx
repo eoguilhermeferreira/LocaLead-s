@@ -52,7 +52,6 @@ export default function Sidebar() {
       {user && (
         <div className="px-5 py-4 border-b border-brand-border">
           <p className="text-sm font-semibold text-white truncate">{user.name || user.email}</p>
-          <p className="text-xs text-gray-500 mt-0.5">Plano Teste</p>
         </div>
       )}
 
