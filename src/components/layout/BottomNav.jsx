@@ -1,6 +1,6 @@
 import {
-  Search, LayoutDashboard, Users, GitBranch, Bell,
-  MessageSquare, Wrench, CreditCard, Settings
+  Search, LayoutDashboard, Users, GitBranch,
+  MessageSquare, Wrench, Settings
 } from 'lucide-react'
 import { useApp } from '../../context/AppContext'
 
@@ -9,10 +9,8 @@ const NAV_ITEMS = [
   { id: 'dashboard', icon: LayoutDashboard },
   { id: 'leads', icon: Users },
   { id: 'pipeline', icon: GitBranch },
-  { id: 'notices', icon: Bell, badge: true },
   { id: 'messages', icon: MessageSquare },
   { id: 'builder', icon: Wrench },
-  { id: 'billing', icon: CreditCard },
   { id: 'account', icon: Settings },
 ]
 

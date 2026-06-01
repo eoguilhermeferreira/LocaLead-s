@@ -10,10 +10,8 @@ const NAV_ITEMS = [
   { id: 'dashboard', icon: LayoutDashboard, label: 'Painel Geral' },
   { id: 'leads', icon: Users, label: 'Meus Leads' },
   { id: 'pipeline', icon: GitBranch, label: 'Pipeline Comercial' },
-  { id: 'notices', icon: Bell, label: 'Canal de Avisos', badge: true },
   { id: 'messages', icon: MessageSquare, label: 'Mensagens IA' },
   { id: 'builder', icon: Wrench, label: 'Construção' },
-  { id: 'billing', icon: CreditCard, label: 'Assinatura' },
   { id: 'account', icon: Settings, label: 'Conta' },
   { id: 'help', icon: HelpCircle, label: 'Ajuda & Tutoriais' },
 ]
