@@ -45,7 +45,7 @@ export const ESTADOS = [
 ]
 
 export const CIDADES_POR_ESTADO = {
-  SP: ['São Paulo','Campinas','Santos','São Bernardo do Campo','Santo André','Guarulhos','Osasco','São José dos Campos','Ribeirão Preto','Sorocaba'],
+  SP: ['São Paulo','Campinas','Santos','São Bernardo do Campo','Santo André','Guarulhos','Osasco','São José dos Campos','Ribeirão Preto','Sorocaba','Avaré','Cerqueira César','Barão de Antonina','Itaí','Iaras','Paranapanema','Piraju','Taguaí','Tejupá','Timburi','Manduri'],
   RJ: ['Rio de Janeiro','Niterói','Duque de Caxias','São Gonçalo','Nova Iguaçu','Belford Roxo','Campos dos Goytacazes'],
   MG: ['Belo Horizonte','Uberlândia','Contagem','Juiz de Fora','Betim','Montes Claros','Ribeirão das Neves'],
   RS: ['Porto Alegre','Caxias do Sul','Pelotas','Canoas','Santa Maria','Novo Hamburgo','São Leopoldo'],
