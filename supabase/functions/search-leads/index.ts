@@ -31,7 +31,7 @@ Deno.serve(async (req) => {
         body: JSON.stringify({
           searchStringsArray: [searchQuery],
           maxCrawledPlacesPerSearch: Math.min(qty, 20),
-          language: 'pt',
+          language: 'pt-BR',
           countryCode: 'br',
           includeWebResults: false,
         }),
