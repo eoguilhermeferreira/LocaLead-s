@@ -48,8 +48,8 @@ export const CIDADES_POR_ESTADO = {
   SP: [
     // DDD 11 — Grande São Paulo
     'São Paulo','Guarulhos','São Bernardo do Campo','Santo André','Osasco','Mauá','São Caetano do Sul','Diadema','Carapicuíba','Itaquaquecetuba','Taboão da Serra','Barueri','Cotia','Embu das Artes','Suzano','Ferraz de Vasconcelos','Itapecerica da Serra','Francisco Morato','Franco da Rocha','Mairiporã','Santana de Parnaíba','Jandira','Pirapora do Bom Jesus','Cajamar','Caieiras','Arujá','Poá','Guararema','Salesópolis','Biritiba Mirim','Mogi das Cruzes','Ribeirão Pires','Rio Grande da Serra','Vargem Grande Paulista','Embu-Guaçu','Juquitiba','São Lourenço da Serra','Itanhaém','Peruíbe','Mongaguá',
-    // DDD 13 — Baixada Santista
-    'Santos','São Vicente','Cubatão','Praia Grande','Guarujá','Bertioga','Itariri','Pedro de Toledo','Miracatu','Tapiraí','Pilar do Sul',
+    // DDD 13 — Baixada Santista e Vale do Ribeira
+    'Santos','São Vicente','Cubatão','Praia Grande','Guarujá','Bertioga','Itanhaém','Peruíbe','Mongaguá','Registro','Iguape','Ilha Comprida','Cananeia','Pariquera-Açu','Eldorado','Iporanga','Barra do Turvo','Cajati','Jacupiranga','Juquiá','Miracatu','Pedro de Toledo','Itariri','Sete Barras','Tapiraí','Pilar do Sul','Itaóca',
     // DDD 14 — Bauru e região
     'Bauru','Botucatu','Marília','Jaú','Ourinhos','Lençóis Paulista','Pederneiras','Agudos','Barra Bonita','São Manuel','Itatinga','Pratânia','Areiópolis','Dois Córregos','Mineiros do Tietê','Brotas','Conchas','Duartina','Piratininga','Reginópolis','Presidente Alves','Cabrália Paulista','Uru','Fernão','Ubirajara','Lucianópolis','Júlio Mesquita','Garça','Gália','Pompeia','Vera Cruz','Ocauçu','Álvaro de Carvalho','Alvinlândia','Santa Cruz do Rio Pardo','Bernardino de Campos','Canitar','Chavantes','Ipauçu','Óleo','Ribeirão do Sul','Salto Grande','São Pedro do Turvo','Sarutaiá','Taquarituba','Coronel Macedo','Avaré','Cerqueira César','Barão de Antonina','Itaí','Iaras','Paranapanema','Piraju','Taguaí','Tejupá','Timburi','Manduri',
     // DDD 12 — Vale do Paraíba
