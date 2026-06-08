@@ -29,7 +29,7 @@ const PAYMENT_CONDITIONS = ['50% para iniciar e 50% na entrega', 'À vista com p
 function generateMessage(lead, type, tone, objective, seed) {
   if (!lead) return ''
   const base = {
-    'WhatsApp inicial': `Olá, tudo bem? Sou [Seu nome] e trabalho com presença digital para negócios locais como ${lead.name}.
+    'WhatsApp inicial': `Olá, tudo bem? Somos a NODEX, uma Agência de Marketing Digital. Trabalhamos com presença digital para negócios locais como ${lead.name}.
 
 Vi que vocês têm ${lead.reviews} avaliações no Google com nota ${lead.rating} — incrível! ${lead.hasSite ? 'Acredito que podemos potencializar ainda mais sua presença digital.' : 'Percebi que ainda não têm um site, o que pode estar limitando o alcance.'}
 

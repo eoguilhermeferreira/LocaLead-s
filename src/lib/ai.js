@@ -52,7 +52,7 @@ function generateFallback(lead, type, tone, objective, seed) {
     : 'Posso te mandar uma proposta rápida?'
 
   const msgs = {
-    'WhatsApp inicial': `Olá, tudo bem? Me chamo [Seu nome] e trabalho com presença digital para negócios locais como ${lead.name}.
+    'WhatsApp inicial': `Olá, tudo bem? Somos a NODEX, uma Agência de Marketing Digital. Trabalhamos com presença digital para negócios locais como ${lead.name}.
 
 Vi que vocês têm ${lead.reviews} avaliações no Google com nota ${lead.rating} — incrível! ${lead.hasSite ? 'Acredito que podemos potencializar ainda mais a sua presença digital.' : `Percebi que o negócio ainda não tem um site profissional, o que pode estar limitando o alcance de vocês em ${lead.cidade}.`}
 

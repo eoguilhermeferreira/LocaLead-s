@@ -90,7 +90,7 @@ ${lead.hasSite
 💡 RECOMENDAÇÃO:
 ${lead.score >= 70 ? 'Alta prioridade de abordagem — negócio ativo com boa reputação e gap digital claro.' : 'Oportunidade de entrada com oferta inicial para validar interesse.'}`,
 
-  'Abrir WhatsApp': (lead) => `Olá, tudo bem? Me chamo [Seu nome] e trabalho com criação de sites para negócios locais como o ${lead.name}.
+  'Abrir WhatsApp': (lead) => `Olá, tudo bem? Somos a NODEX, uma Agência de Marketing Digital. Trabalhamos com criação de sites para negócios locais como o ${lead.name}.
 
 Vi que vocês têm ${lead.reviews} avaliações no Google e uma nota ${lead.rating} — isso é ótimo! ${lead.hasSite ? 'Acredito que podemos deixar seu site ainda mais eficiente para converter mais clientes.' : 'Percebi que o negócio ainda não tem um site profissional, o que pode estar limitando o crescimento.'}
 
