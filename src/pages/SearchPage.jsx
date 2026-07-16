@@ -338,8 +338,8 @@ export default function SearchPage() {
     setSelected(null)
     setSearchError(null)
 
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://qkroxfioobhoaezoxwom.supabase.co'
-    const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrcm94Zmlvb2Job2Flem94d29tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyODg2NDYsImV4cCI6MjA5Mzg2NDY0Nn0.zEXVt_mnHsVC3pK9_oI9Hw1KJo-BG7NC41qGssvUgWk'
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://uyhqkdmbzvswrdlujxmp.supabase.co'
+    const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5aHFrZG1ienZzd3JkbHVqeG1wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0ODcyOTIsImV4cCI6MjA5ODA2MzI5Mn0.ffC6ARhkP_C6lqTiOeJdtLVvv7KEk1ZBCUY5cEj3Pvw'
 
     if (supabaseUrl && supabaseKey) {
       try {
