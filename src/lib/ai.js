@@ -3,20 +3,29 @@
  * ou fallback para geração local quando sem API key.
  */
 
-export async function generateAIMessage({ lead, type, tone, objective, seed }) {
-  const systemPrompt = `Você é um especialista em prospecção comercial para agências digitais brasileiras.
-Gere mensagens persuasivas, naturais e personalizadas para abordar negócios locais.
-Tom: ${tone}. Objetivo: ${objective}.
-${seed ? `Instrução base: ${seed}` : ''}
-Responda APENAS com a mensagem, sem explicações adicionais.`
+export async function generateAIMessage({ lead, type, tone, objective, seed, serviceLabel }) {
+  const service = serviceLabel || 'site profissional'
 
-  const userPrompt = `Gere uma mensagem do tipo "${type}" para o seguinte negócio:
+  const systemPrompt = `Você é um especialista em vendas e prospecção comercial para agências digitais brasileiras.
+Seu objetivo é gerar mensagens altamente persuasivas que fecham contratos de ${service}.
+Tom: ${tone}. Objetivo: ${objective}.
+${seed ? `Instrução extra: ${seed}` : ''}
+Regras:
+- Seja direto, natural e comercialmente inteligente
+- Use dados reais do negócio (nota, avaliações, cidade, nicho) para personalizar
+- Foque no benefício concreto para o cliente, não só na venda
+- Mensagem pronta para enviar — sem introduções ou explicações extras
+- Use formatação WhatsApp (*negrito*, emojis moderados) quando for mensagem de WhatsApp
+Responda APENAS com a mensagem final.`
+
+  const userPrompt = `Gere uma mensagem do tipo "${type}" para o seguinte negócio local:
 - Nome: ${lead.name}
-- Nicho: ${lead.nicho}
-- Cidade: ${lead.cidade}/${lead.estado}
-- Avaliação Google: ${lead.rating}⭐ (${lead.reviews} avaliações)
-- Presença digital: ${lead.hasSite ? 'Possui site' : 'Sem site detectado'}
+- Segmento: ${lead.nicho}
+- Cidade: ${lead.cidade}, ${lead.estado}
+- Google: ${lead.rating}⭐ (${lead.reviews} avaliações)
+- Presença digital: ${lead.hasSite ? 'Possui site' : 'Sem site — grande oportunidade'}
 - Score de oportunidade: ${lead.score}/100
+- Serviço sendo vendido: ${service}
 - WhatsApp: ${lead.phone}`
 
   const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
