@@ -36,7 +36,7 @@ export const NICHOS = [
   // Varejo
   'Lojas de roupas', 'Lojas de calçados', 'Óticas', 'Joalherias', 'Floriculturas',
   'Papelarias', 'Lojas de material de construção', 'Lojas de móveis',
-  'Lojas de bebidas', 'Supermercados de bairro',
+  'Lojas de bebidas', 'Supermercados de bairro', 'Lojas infantis',
 ]
 
 export const ESTADOS = [
