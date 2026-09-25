@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>LocaLead's</title>
+    <script>
+      // Salva a URL atual e redireciona para index.html
+      // O index.html então restaura a URL correta
+      sessionStorage.setItem('spa_redirect', window.location.href);
+      window.location.replace('/LocaLead-s/');
+    </script>
+  </head>
+  <body></body>
+</html>
