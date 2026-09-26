@@ -1,8 +1,3 @@
-/**
- * Geração de mensagens via Claude API (server-side via Edge Function)
- * ou fallback para geração local quando sem API key.
- */
-
 export async function generateAIMessage({ lead, type, tone, objective, seed, serviceLabel }) {
   const service = serviceLabel || 'site profissional'
 
@@ -32,7 +27,7 @@ Responda APENAS com a mensagem final.`
   const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
   if (!supabaseUrl || !supabaseKey) {
-    return generateFallback(lead, type, tone, objective, seed)
+    return generateFallback(lead, type, tone, serviceLabel)
   }
 
   try {
@@ -47,57 +42,170 @@ Responda APENAS com a mensagem final.`
     })
     if (!resp.ok) throw new Error('Edge function error')
     const data = await resp.json()
-    return data.content || generateFallback(lead, type, tone, objective, seed)
+    return data.content || generateFallback(lead, type, tone, serviceLabel)
   } catch {
-    return generateFallback(lead, type, tone, objective, seed)
+    return generateFallback(lead, type, tone, serviceLabel)
   }
 }
 
-function generateFallback(lead, type, tone, objective, seed) {
-  const callToAction = tone === 'Mais agressivo'
-    ? 'Tenho uma oferta especial ESTA SEMANA. Posso te mostrar em 2 min?'
-    : tone === 'Urgência leve'
-    ? 'Ainda tenho vagas disponíveis esta semana. Posso te enviar a proposta?'
-    : 'Posso te mandar uma proposta rápida?'
+function generateFallback(lead, type, tone, serviceLabel) {
+  if (!lead) return ''
+
+  const svc = (serviceLabel || 'site profissional').toLowerCase()
+  const isLoja = svc.includes('loja')
+  const isCardapio = svc.includes('cardápio') || svc.includes('cardapio')
+  const isLanding = svc.includes('landing')
+  const isInstitucional = svc.includes('institucional')
+
+  const cta = {
+    'Mais agressivo': 'Tenho uma proposta montada. Posso te mandar agora?',
+    'Urgência leve': 'Ainda tenho agenda aberta essa semana. Quando posso te mandar a proposta?',
+    'Premium': 'Posso te mostrar alguns cases do seu setor antes de enviar a proposta?',
+    'Direto': 'Te mando a proposta agora. Quando você pode dar uma olhada?',
+  }[tone] || 'Posso te mandar uma proposta personalizada?'
+
+  const semSiteTexto = lead.hasSite
+    ? `percebi que o site atual tem espaço para melhorar a conversão de clientes`
+    : isLoja
+      ? `vi que ainda não há uma loja virtual, o que faz você depender só do Instagram ou do iFood`
+      : isCardapio
+        ? `vi que ainda não há um cardápio digital — clientes que buscam no Google não conseguem ver seus produtos`
+        : isLanding
+          ? `vi que ainda não há uma landing page para capturar clientes pelo Google`
+          : `vi que ainda não há um site profissional, o que pode estar limitando o alcance em ${lead.cidade}`
+
+  const beneficio = isLoja
+    ? `Uma loja virtual permite vender 24h por dia, aceitar pedidos pelo WhatsApp e parar de pagar comissão pra marketplace`
+    : isCardapio
+      ? `Com um cardápio digital, seus clientes veem os pratos com foto, escolhem e pedem direto pelo WhatsApp — sem mensalidade de app`
+      : isLanding
+        ? `Uma landing page de alta conversão faz seu negócio aparecer no Google e transforma visitantes em clientes agendados`
+        : `Um site profissional faz ${lead.name} aparecer nas buscas do Google e passa credibilidade para quem ainda não te conhece`
 
   const msgs = {
-    'WhatsApp inicial': `Olá, tudo bem? Somos a NODEX, uma Agência de Marketing Digital. Trabalhamos com presença digital para negócios locais como ${lead.name}.
+    'WhatsApp inicial': `Olá, tudo bem? Me chamo [Seu nome], sou da NODEX Agência Digital.
 
-Vi que vocês têm ${lead.reviews} avaliações no Google com nota ${lead.rating} — incrível! ${lead.hasSite ? 'Acredito que podemos potencializar ainda mais a sua presença digital.' : `Percebi que o negócio ainda não tem um site profissional, o que pode estar limitando o alcance de vocês em ${lead.cidade}.`}
+Encontrei o *${lead.name}* no Google — ${lead.rating}⭐ e ${lead.reviews} avaliações, parabéns! Só que ${semSiteTexto}.
 
-${callToAction}`,
-    'Follow-up 1': `Oi, tudo bem?
+${beneficio}.
 
-Passei aqui para verificar se você recebeu minha mensagem anterior sobre ${lead.name}. ${tone === 'Urgência leve' ? 'Ainda tenho algumas vagas disponíveis.' : 'Seria um prazer mostrar o que preparei.'}
+${cta}`,
 
-Quando seria um bom momento para conversarmos?`,
-    'Follow-up 2': `Olá! Este é meu último contato sobre a proposta para ${lead.name}.
+    'Follow-up 1': `Oi, tudo bem? Passei aqui pois não vi resposta sobre ${lead.name}.
 
-Se não for o momento certo, sem problema! Quando precisar de apoio com presença digital em ${lead.cidade}, pode contar comigo.
+Entendo que a rotina é corrida — mas não queria que essa oportunidade passasse.
 
-Um abraço e bons negócios! 🙂`,
-    'Proposta curta': `📋 Proposta — ${lead.name}
+${tone === 'Urgência leve' ? `Tenho agenda disponível só até sexta. Quando seria um bom momento pra conversar 5 minutos?` : `Quando tiver um minutinho, me avisa? Mando um resumo rápido antes.`}`,
 
-Serviço: ${lead.hasSite ? 'Otimização do site atual' : 'Criação de site profissional'}
-Investimento: R$ 997,00
-Prazo: 5 dias úteis
-Condição: 50% início + 50% na entrega
+    'Follow-up 2': `Olá! Esse é meu último contato sobre ${lead.hasSite ? 'a melhoria da presença digital' : `a criação ${isCardapio ? 'do cardápio digital' : isLoja ? 'da loja virtual' : isLanding ? 'da landing page' : 'do site'}`} para *${lead.name}*.
 
-✅ Landing page responsiva
-✅ Integração WhatsApp + Google Maps
+Se não for o momento agora, sem problema! Fica o contato para quando fizer sentido.
+
+Bons negócios! 🙂`,
+
+    'Proposta curta': isCardapio
+      ? `📋 *Proposta — ${lead.name}*
+
+🎯 Serviço: Cardápio Digital Profissional
+💰 Investimento: R$ 497,00
+📅 Prazo: 3 dias úteis
+💳 Condição: 50% início + 50% na entrega
+
+✅ Cardápio com fotos profissionais de cada prato
+✅ Link próprio para compartilhar no WhatsApp e Instagram
+✅ QR Code impresso incluso
+✅ Pedido direto pelo WhatsApp (sem taxa de marketplace)
+✅ Destaque de pratos do dia e promoções
+✅ 30 dias de suporte
+
+Avançamos? É só confirmar que já marco na agenda. 🚀`
+      : isLoja
+        ? `📋 *Proposta — ${lead.name}*
+
+🎯 Serviço: Loja Virtual Completa
+💰 Investimento: R$ 997,00
+📅 Prazo: 5 dias úteis
+💳 Condição: 50% início + 50% na entrega
+
+✅ Catálogo completo com fotos e preços
+✅ Filtros por categoria de produto
+✅ Carrinho + pedido direto pelo WhatsApp
+✅ Banner de promoções e destaques
 ✅ SEO local para ${lead.cidade}
 ✅ 30 dias de suporte
 
-Gostaria de avançar?`,
-    'Diagnóstico': `📊 Diagnóstico Digital — ${lead.name}
+Avançamos? É só confirmar. 🚀`
+        : isLanding
+          ? `📋 *Proposta — ${lead.name}*
+
+🎯 Serviço: Landing Page de Alta Conversão
+💰 Investimento: R$ 797,00
+📅 Prazo: 3 dias úteis
+💳 Condição: 50% início + 50% na entrega
+
+✅ Design focado em converter visitantes em clientes
+✅ Formulário de captação de leads
+✅ Integração WhatsApp e Google Maps
+✅ SEO local para ${lead.cidade}
+✅ Otimizada para campanhas pagas (Google/Meta)
+✅ 30 dias de suporte
+
+Avançamos? 🚀`
+          : `📋 *Proposta — ${lead.name}*
+
+🎯 Serviço: Site Institucional Profissional
+💰 Investimento: R$ 997,00
+📅 Prazo: 5 dias úteis
+💳 Condição: 50% início + 50% na entrega
+
+✅ Design responsivo (celular e computador)
+✅ Galeria, depoimentos e formulário de contato
+✅ Google Maps e WhatsApp integrados
+✅ SEO local para ${lead.cidade}
+✅ 30 dias de suporte
+
+Avançamos? 🚀`,
+
+    'Diagnóstico': `📊 *Diagnóstico Digital — ${lead.name}*
 
 Score: ${lead.score}/100
-Presença: ${lead.hasSite ? '✅ Possui site' : '❌ Sem site detectado'}
-Reputação: ${lead.rating}⭐ (${lead.reviews} avaliações)
+Presença: ${lead.hasSite ? `✅ Possui site` : isCardapio ? `❌ Sem cardápio digital` : isLoja ? `❌ Sem loja virtual` : `❌ Sem site`}
+Google: ${lead.rating}⭐ (${lead.reviews} avaliações)
 Localização: ${lead.cidade}, ${lead.estado}
 
-${lead.score >= 85 ? '🔥 Alta oportunidade — prioridade máxima de abordagem.' : lead.score >= 70 ? '✅ Boa oportunidade — negócio ativo com gap digital claro.' : '📌 Oportunidade padrão — avaliar melhor o momento.'}`,
+${lead.score >= 85
+  ? `🔥 *Alta oportunidade.* Ótima reputação, mas sem ${isCardapio ? 'cardápio digital' : isLoja ? 'loja virtual' : 'presença digital adequada'}. Gap claro para fechar.`
+  : lead.score >= 70
+    ? `✅ *Boa oportunidade.* Negócio ativo com potencial de crescimento digital.`
+    : `📌 *Oportunidade padrão.* Vale qualificar antes de enviar proposta.`}`,
+
+    'Resposta a objeção': `Entendo! Deixa eu explicar rapidinho:
+
+💡 *"Já tenho Instagram"* — ótimo, mas quem pesquisa "${lead.nicho} em ${lead.cidade}" no Google não chega até o Instagram. ${isLoja ? 'Com uma loja virtual, você vende 24h sem depender de algoritmo.' : isCardapio ? 'Com um cardápio digital, o cliente vê o menu e já pede.' : 'Com um site, você aparece quando a pessoa está pronta pra comprar.'}
+
+💡 *"Tá caro"* — o investimento se paga com 1 ou 2 clientes novos por mês. Com ${lead.reviews} avaliações e ${lead.rating}⭐, a demanda já existe — é só capturar.
+
+💡 *"Não é prioridade agora"* — a concorrência não está esperando. Quanto antes, mais rápido colhe os frutos.
+
+Posso mostrar um exemplo do seu segmento?`,
+
+    'Script de ligação': `📞 *Script de Ligação — ${lead.name}*
+
+[Abertura]
+"Oi, posso falar com o responsável? Meu nome é [Seu nome], sou da NODEX Agência Digital."
+
+[Quebra gelo]
+"Vi o ${lead.name} no Google — ${lead.rating} estrelas e ${lead.reviews} avaliações, parabéns!"
+
+[Gancho]
+"Entrei em contato porque a gente cria ${isCardapio ? 'cardápios digitais' : isLoja ? 'lojas virtuais' : isLanding ? 'landing pages de alta conversão' : 'sites institucionais'} para ${lead.nicho} em ${lead.cidade}, e ${lead.hasSite ? 'vi que dá pra melhorar bastante a conversão do site de vocês' : `vi que ainda não há ${isCardapio ? 'cardápio digital' : isLoja ? 'loja virtual' : 'site profissional'}`}."
+
+[Qualificação]
+"Vocês recebem mais clientes pelo WhatsApp ou pelo Google hoje?"
+
+[CTA]
+"Tenho uma proposta pronta pro seu segmento. Consigo te mandar agora pelo WhatsApp?"`,
   }
 
-  return msgs[type] || `[${type}] gerado para ${lead.name} (${tone})\nObjetivo: ${objective}${seed ? `\nBase: ${seed}` : ''}`
+  return msgs[type] || `Olá! Somos da NODEX Agência Digital e criamos ${svc} para negócios como ${lead.name} em ${lead.cidade}.\n\n${cta}`
 }
