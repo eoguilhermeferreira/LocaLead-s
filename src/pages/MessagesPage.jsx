@@ -329,11 +329,7 @@ export default function MessagesPage() {
       seed,
       serviceLabel,
     })
-    if (!text || text.startsWith('[')) {
-      setGenerated(generateFallback(lead, msgType, tone, currentObjective, seed, service))
-    } else {
-      setGenerated(text)
-    }
+    setGenerated(text)
     setGenerating(false)
   }
 
