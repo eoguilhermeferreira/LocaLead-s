@@ -69,7 +69,7 @@ function generateFallback(lead, type, tone, serviceLabel) {
     : isLoja
       ? `vi que ainda não há uma loja virtual, o que faz você depender só do Instagram ou do iFood`
       : isCardapio
-        ? `vi que ainda não há um cardápio digital — clientes que buscam no Google não conseguem ver seus produtos`
+        ? `vi que ainda não há um cardápio digital — clientes que buscam no Google não conseguem ver seus pratos`
         : isLanding
           ? `vi que ainda não há uma landing page para capturar clientes pelo Google`
           : `vi que ainda não há um site profissional, o que pode estar limitando o alcance em ${lead.cidade}`
@@ -83,7 +83,7 @@ function generateFallback(lead, type, tone, serviceLabel) {
         : `Um site profissional faz ${lead.name} aparecer nas buscas do Google e passa credibilidade para quem ainda não te conhece`
 
   const msgs = {
-    'WhatsApp inicial': `Olá, tudo bem? Me chamo [Seu nome], sou da NODEX Agência Digital.
+    'WhatsApp inicial': `Olá, tudo bem? Me chamo Guilherme, sou da NODEX Agência Digital.
 
 Encontrei o *${lead.name}* no Google — ${lead.rating}⭐ e ${lead.reviews} avaliações, parabéns! Só que ${semSiteTexto}.
 
@@ -97,7 +97,7 @@ Entendo que a rotina é corrida — mas não queria que essa oportunidade passas
 
 ${tone === 'Urgência leve' ? `Tenho agenda disponível só até sexta. Quando seria um bom momento pra conversar 5 minutos?` : `Quando tiver um minutinho, me avisa? Mando um resumo rápido antes.`}`,
 
-    'Follow-up 2': `Olá! Esse é meu último contato sobre ${lead.hasSite ? 'a melhoria da presença digital' : `a criação ${isCardapio ? 'do cardápio digital' : isLoja ? 'da loja virtual' : isLanding ? 'da landing page' : 'do site'}`} para *${lead.name}*.
+    'Follow-up 2': `Olá! Esse é meu último contato sobre ${lead.hasSite ? 'a melhoria da presença digital' : `a criação ${isCardapio ? 'do cardápio digital' : isLoja ? 'da loja virtual' : isLanding ? 'da landing page' : 'do site'} profissional`} para *${lead.name}*.
 
 Se não for o momento agora, sem problema! Fica o contato para quando fizer sentido.
 
@@ -192,13 +192,13 @@ Posso mostrar um exemplo do seu segmento?`,
     'Script de ligação': `📞 *Script de Ligação — ${lead.name}*
 
 [Abertura]
-"Oi, posso falar com o responsável? Meu nome é [Seu nome], sou da NODEX Agência Digital."
+"Oi, posso falar com o responsável? Meu nome é Guilherme, sou da NODEX Agência Digital."
 
 [Quebra gelo]
-"Vi o ${lead.name} no Google — ${lead.rating} estrelas e ${lead.reviews} avaliações, parabéns!"
+"Vi o ${lead.name} no Google — ${lead.rating}⭐ e ${lead.reviews} avaliações, parabéns!"
 
 [Gancho]
-"Entrei em contato porque a gente cria ${isCardapio ? 'cardápios digitais' : isLoja ? 'lojas virtuais' : isLanding ? 'landing pages de alta conversão' : 'sites institucionais'} para ${lead.nicho} em ${lead.cidade}, e ${lead.hasSite ? 'vi que dá pra melhorar bastante a conversão do site de vocês' : `vi que ainda não há ${isCardapio ? 'cardápio digital' : isLoja ? 'loja virtual' : 'site profissional'}`}."
+"Entrei em contato porque a gente cria ${isCardapio ? 'cardápios digitais' : isLoja ? 'lojas virtuais' : isLanding ? 'landing pages de alta conversão' : 'sites institucionais'} para ${lead.nicho} em ${lead.cidade}, e ${lead.hasSite ? 'vi que dá pra melhorar bastante a conversão do site de vocês' : `vi que ainda não há ${isCardapio ? 'um cardápio digital' : isLoja ? 'uma loja virtual' : 'um site profissional'}`}."
 
 [Qualificação]
 "Vocês recebem mais clientes pelo WhatsApp ou pelo Google hoje?"
